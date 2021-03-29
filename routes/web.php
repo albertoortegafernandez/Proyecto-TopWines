@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,3 +19,8 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/perfil',[UserController::class,'profile'])->name('profile');
+Route::post('/user/edit', [UserController::class,'update'])->name('user.update');
+Route::get('/user/avatar/{filename}',[UserController::class,'getImage'])->name('user.avatar');
+
