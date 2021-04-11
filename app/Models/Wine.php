@@ -9,8 +9,7 @@ class Wine extends Model
 {
     use HasFactory;
     protected $fillable=[
-
-    ];
+        'name','origin','category','type','price','description','image'];
     
     public function comments(){
         return $this->hasMany(Comment::class);

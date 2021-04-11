@@ -43,6 +43,7 @@ class UserController extends Controller
         $nick=$request->nick;
         $postal_code=$request->postal_code;
         $address=$request->address;
+        $city=$request->city;
         $phone_number=$request->phone_number;
         $email=$request->email;
 
@@ -52,6 +53,7 @@ class UserController extends Controller
         $user->nick=$nick;
         $user->address=$address;
         $user->postal_code=$postal_code;
+        $user->city=$city;
         $user->phone_number=$phone_number;
         $user->email=$email;
 

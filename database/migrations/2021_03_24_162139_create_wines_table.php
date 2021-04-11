@@ -11,11 +11,12 @@ class CreateWinesTable extends Migration
     {
         Schema::create('wines', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->string('origin');
             $table->string('category');
             $table->string('type');
             $table->double('price');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('image');
             $table->integer('num_likes')->default(0);
             $table->unsignedBigInteger('user_id');

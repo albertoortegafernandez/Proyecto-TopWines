@@ -2,25 +2,25 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\WineController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Auth::routes();
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/perfil',[UserController::class,'profile'])->name('profile');
-Route::post('/user/edit', [UserController::class,'update'])->name('user.update');
-Route::get('/user/avatar/{filename}',[UserController::class,'getImage'])->name('user.avatar');
+Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+//Rutas Usuarios
+Route::get('perfil',[UserController::class,'profile'])->name('profile');
+Route::post('user/edit', [UserController::class,'update'])->name('user.update');
+Route::get('user/avatar/{filename}',[UserController::class,'getImage'])->name('user.avatar');
+
+//Ruta Productos
+Route::resource('wines',WineController::class);
+
+//Google login
+Route::get('login/google',[LoginController::class,'redirectToGoogle'])->name('login.google');
+Route::get('login/google/callback',[LoginController::class,'handleGoogleCallback']);

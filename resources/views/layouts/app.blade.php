@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>TOPWINES</title>
+    <title>TopWines</title>
     <link rel="icon" type="imagen/PNG"  href="../resources/img/Logo-icon.png">
 
     <!-- Scripts -->
@@ -29,10 +29,10 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="../resources/img/Logo.png">
+                <a class="navbar-brand" href="{{ url('home') }}">
+                    <img src="../resources/img/logo.png">
                 </a>
-                <a class="nav-link" href="#">Inicio</a>
+                <a class="nav-link" href="home">Inicio</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -50,13 +50,13 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}">Iniciar Sesion</a>
                                 </li>
                             @endif
                             
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Registro') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">Crear Cuenta </a>
                                 </li>
                             @endif
                         @else
@@ -71,7 +71,7 @@
                                     <a class="dropdown-item" href="{{route('profile')}}"> Mi Perfil</a>
 
                                     @if(Auth::user()->name=="administrador")
-                                        <a class="dropdown-item" href="#">Configuracion</a>
+                                        <a class="dropdown-item" href="/wines/create">Añadir Productos</a>
 
                                     @else
                                         <a class="dropdown-item" href="#">Mis Favoritos</a>
@@ -80,7 +80,7 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('Salir') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -98,5 +98,7 @@
             @yield('content')
         </main>
     </div>
+
+    @yield('scripts')
 </body>
 </html>
