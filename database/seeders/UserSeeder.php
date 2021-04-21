@@ -23,7 +23,8 @@ class UserSeeder extends Seeder
             'city'=>' ',
             'phone_number'=>0,
             'email'=>'admin@admin.es',
-            'password'=>bcrypt('admin')
+            'password'=>bcrypt('admin'),
+            'avatar'=>'admin.png',
         ]);
         User::create([
             'name'=>'Jose',
@@ -34,7 +35,8 @@ class UserSeeder extends Seeder
             'city'=>'Zaragoza',
             'phone_number'=>650235478,
             'email'=>'josezgz@gmail.com',
-            'password'=>bcrypt('jose')
+            'password'=>bcrypt('jose'),
+            'avatar'=>'joseGonz.png',
         ]);
     }
 }

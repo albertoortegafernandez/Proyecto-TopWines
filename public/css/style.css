@@ -1,5 +1,5 @@
 .avatar{
-    width:60px;
+    width:55px;
     margin-bottom: 15px;
 }
 .navbar .container-avatar{
@@ -7,8 +7,18 @@
     height: 45px;
     border-radius: 50%; 
     overflow: hidden;
-    margin-right: 10px;
+    margin-right: 15px;
 }
 .navbar .container-avatar img{
     height: 100%;
+}
+#imgUserPerfil{
+    width:250px;
+    display: block;
+    margin-left: 30%;
+}
+#imgWinePerfil{
+    height:350px;
+    display: block;
+    margin-left: 40%;
 }

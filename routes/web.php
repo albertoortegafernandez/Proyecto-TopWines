@@ -14,12 +14,14 @@ Auth::routes();
 Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Rutas Usuarios
+Route::resource('users',UserController::class);
 Route::get('perfil',[UserController::class,'profile'])->name('profile');
 Route::post('user/edit', [UserController::class,'update'])->name('user.update');
 Route::get('user/avatar/{filename}',[UserController::class,'getImage'])->name('user.avatar');
 
 //Ruta Productos
 Route::resource('wines',WineController::class);
+Route::get('wine/image/{filename}',[WineController::class,'getImage'])->name('wine.image');
 
 //Google login
 Route::get('login/google',[LoginController::class,'redirectToGoogle'])->name('login.google');
