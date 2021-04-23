@@ -13,7 +13,7 @@ class WineController extends Controller
 {
     function __construct()
     {
-        $this->middleware('auth');
+        
     }
     public function index()
     {
@@ -34,7 +34,7 @@ class WineController extends Controller
         $id = $user->id;
 
         $request->validate([
-            'image' => 'required|file',
+            'image' => 'required|image',
             'name' => 'required|string|max:400',
             'origin' => 'required|string',
             'category' => 'required|string',
@@ -69,7 +69,7 @@ class WineController extends Controller
             $wine->image = $newImage;
         }
         $wine->save();
-        return redirect('/wines');
+        return redirect('/wines')->with('status','Producto Añadido');
     }
 
     public function show(Wine $wine)
@@ -85,8 +85,8 @@ class WineController extends Controller
     public function update(Request $request, Wine $wine)
     {
         $request->validate([
-            'image' => 'required|file',
-            'name' => 'required|regex:/^[\pL\s\-]+$/u|max:400',
+            'image' => 'required|image',
+            'name' => 'required|string|max:400',
             'origin' => 'required|string',
             'category' => 'required|string',
             'type' => 'required|string',
@@ -102,7 +102,7 @@ class WineController extends Controller
             $wine->image = $newImage;
         }    
         $wine->save();
-        return redirect('/wines');
+        return redirect('/wines')->with('status','Producto Actualizado');
     }
 
     public function destroy($id)

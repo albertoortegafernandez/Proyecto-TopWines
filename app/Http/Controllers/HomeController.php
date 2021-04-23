@@ -3,21 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Wine;
+use App\Models\Like;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Response;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+
     public function __construct()
     {
         
     }
-
     public function index()
     {
-        return view('home');
+        $wines=Wine::all();
+        return view('home',['wines'=>$wines]);
     }
+
 }

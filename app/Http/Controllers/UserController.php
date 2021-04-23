@@ -114,10 +114,9 @@ class UserController extends Controller
         $userlog=Auth::user();
         $idUserlog=$userlog->id;
         if($idUserlog!=1){
-            return redirect('home')->with('status', 'Producto Borrado');//Si el usuario registrado no es el admin que lo devuelva al home
+            return redirect('home')->with('status', 'Usuario Borrado');//Si el usuario registrado no es el admin que lo devuelva al home
         }else{
-            $users=User::all();
-            return view ('user.index',['users'=>$users])->with('status', 'Producto Borrado');//si es admin a la vista de los usuarios registrados
+            return redirect ('users/')->with('status', 'Usuario Borrado');//si es admin a la vista de los usuarios registrados
         } 
     }
     public function getImage($filename)

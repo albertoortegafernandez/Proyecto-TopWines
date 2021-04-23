@@ -4,6 +4,11 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @if(session()->has('status'))
+            <div class="alert alert-success">
+                {{session('status')}}
+            </div>
+            @endif
             <h3>Productos disponibles en la web
                 <div class="float-right"><a href="/wines/create" class="btn btn-primary">Añadir Nuevo</a></div>
             </h3>
