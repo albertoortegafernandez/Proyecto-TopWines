@@ -4,7 +4,12 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-        <h3 style="text-align:center;">Usuarios registrados en la web
+            @if(session()->has('status'))
+            <div class="justify-content-center col-md-6 alert alert-success">
+                {{session('status')}}
+            </div>
+            @endif
+            <h3 style="text-align:center;">Usuarios registrados en la web
                 <div class="float-right"><a href="/users/create" class="btn btn-primary btn-sm">Añadir Nuevo</a></div>
             </h3>
             </br>
