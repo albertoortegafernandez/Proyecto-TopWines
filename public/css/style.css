@@ -76,3 +76,7 @@
 #comentarioVino{
     padding: 20px;
 }
+#comentsUser{
+    border:1px solid red;
+    display: inline-block;
+}

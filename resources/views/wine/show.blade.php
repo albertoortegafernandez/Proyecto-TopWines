@@ -34,26 +34,48 @@
                     <div id="comentarioVino">
                         <h4 style="text-align:center;">Comentarios</h4>
                         <br>
-                        <form method="POST" action="">
+                        <form method="POST" action="{{route('comment.save')}}">
                             @csrf
 
-                            <input type="hidden" name="wine_id" value="{{$wine->id}}"/>
+                            <input type="hidden" name="wine_id" value="{{$wine->id}}" />
                             <p>
-                                <p>Añadir Comentario</p>
-                                <textarea class="form-control" name="content" required></textarea>
+                            <p>Añadir Comentario</p>
+                            <textarea class="form-control" name="comment"></textarea>
+                            @error('comment')
+                            <div class="text-danger">
+                                <strong>{{ $message }}</strong>
+                            </div>
+                            @enderror
                             </p>
                             <button type="submit" class="btn btn-success">Enviar</button>
                         </form>
-
+                        <hr>
+                        @foreach ($wine->comments as $comment )
+                        <div class="comment">
+                            <span>@include('includes.userComent'){{' @'.$comment->user->nick}}</span>
+                            <span>{{' | '.($comment->created_at)->format('d-m-Y')}}</span>
+                            @if(Auth::check() &&($comment->user_id == Auth::user()->id || Auth::user()->nick=='admin'))
+                            <span style="margin-top:0%;float:right;">
+                                <form action="/comments/{{$comment->id}}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input class="btn btn-sm btn-outline-danger" type="submit" value="Eliminar">
+                                </form>
+                            </span>
+                            @endif
+                            <p>{{$comment->content}}</p>
+                        </div>
+                        <hr>
+                        @endforeach
                     </div>
                 </div>
                 <div class="card-footer">
                     @if(Auth::user()->nick=="admin")
-                    <div><a class="btn btn-primary btn-md" style="float:left" href="/">Inicio</a>
-                        <a class="btn btn-primary btn-md" style="float:right" href="/wines">Listado de productos</a>
+                    <div><a style="float:left" href="/">Inicio</a>
+                        <a  style="float:right" href="/wines">Listado de productos</a>
                     </div>
                     @else
-                    <div><a class="btn btn-primary btn-md" style="margin-left:45%;" href="/">Volver</a></div>
+                    <div><a style="margin-left:45%;" href="/">Volver</a></div>
                     @endif
                 </div>
             </div>
