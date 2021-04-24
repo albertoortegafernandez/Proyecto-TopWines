@@ -2,84 +2,74 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use App\Models\Wine;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct()
     {
-        //
+        $this->middleware('auth');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function index()
+    {
+       //
+    }
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function save(Request $request)
     {
-        //
+        $rules=[
+            'wine_id'=>'required|integer',
+            'comment'=>'required|string',
+        ];
+        $request->validate($rules);
+        //Recoger datos
+        $user=Auth::user();
+        $wine_id=$request->input('wine_id');
+        $content=$request->input('comment');//contenido del textarea(comentario)
+        //Asignar valores a comentario
+        $comment=new Comment();
+        $comment->user_id=$user->id;
+        $comment->wine_id=$wine_id;
+        $comment->content=$content;
+        $comment->save();
+
+        return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
     public function show(Comment $comment)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Comment $comment)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Comment $comment)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Comment $comment)
+    public function destroy($id)
     {
-        //
+        $user=Auth::user();
+        $comment=Comment::find($id);
+
+        //Comprobar si soy el dueño del comentario o si soy administrador, para poder borrarlo
+        if($user &&($comment->user_id ==$user->id || $user->nick=='admin')){
+            Comment::destroy($id);
+            return back();
+        }
+        return back();
     }
 }

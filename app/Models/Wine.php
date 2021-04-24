@@ -12,7 +12,7 @@ class Wine extends Model
         'name','origin','category','type','price','description','image'];
     
     public function comments(){
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)->orderBy('id','desc');
     }
 
     public function likes(){

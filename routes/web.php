@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\WineController;
 
 Auth::routes();
@@ -22,6 +23,10 @@ Route::get('user/avatar/{filename}',[UserController::class,'getImage'])->name('u
 Route::get('wines',[WineController::class,'index']);
 Route::resource('wines',WineController::class)->middleware('auth');
 Route::get('wine/image/{filename}',[WineController::class,'getImage'])->name('wine.image');
+
+//Ruta Comentarios
+Route::post('comments/save', [CommentController::class,'save'])->name('comment.save');
+Route::resource('comments',CommentController::class);
 
 //Google login
 Route::get('login/google',[LoginController::class,'redirectToGoogle'])->name('login.google');
