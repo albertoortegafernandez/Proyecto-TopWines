@@ -5,13 +5,13 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Editar producto</div>
+                <div class="card-header text-md-center"><h4><i class="fas fa-edit"></i> Editar Producto</h4></div>
                 <div class="card-body">
                     <form method="POST" action="/wines/{{$wine->id}}" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="_method" value="PUT">
                         <div class="form-group row">
-                            <label for="image" class="col-md-4 col-form-label"><img src="{{ route('wine.image',['filename'=>$wine->image]) }}"></label>
+                            <label for="image" class="col-md-4 col-form-label text-md-right"><img style="height:100px;"src="{{ route('wine.image',['filename'=>$wine->image]) }}"/></label>
                             <div class="col-md-7">
                                 <input id="image" type="file" name="image" class="form-control-file"  value="{{old('image') ?? $wine->image}}"/>
                                 @error('image')
@@ -41,6 +41,9 @@
                                     <option value="Borja">Borja</option>
                                     <option value="Valdepenyas">Valdepeñas</option>
                                     <option value="Priorat">Priorat</option>
+                                    <option value="Somontano">Somontano</option>
+                                    <option value="Rias Baixas">Rías Baixas</option>
+                                    <option value="Otros">Otros</option>
                                 </select>
                             </div>
                         </div>
@@ -90,7 +93,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-7 offset-md-5">
-                                <input type="submit" class="btn btn-primary" value="Actualizar Producto">
+                                <input type="submit" class="btn btn-outline-primary" value="Actualizar Producto">
                             </div>
                         </div>
                     </form>

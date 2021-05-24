@@ -1,3 +1,46 @@
+@font-face {
+    font-family:titulos;
+    src:url('/fonts/PinyonScript-Regular.ttf')
+}
+@font-face {
+    font-family:textos;
+    src:url('/fonts/Roboto-Light.ttf')
+}
+body{
+    background-color: rgba(233, 231, 231, 0.883);
+    padding-top:150px;
+    font-family: textos;
+}
+footer{
+    background-color: black;
+    color: white;
+    font-family: textos;
+}
+footer ul{
+    font-size: 20px;
+}
+footer li{
+    list-style: none;
+    font-size: 16px;
+    text-decoration:none;
+}
+h2{
+    font-family: titulos;
+    text-align: center;
+    font-size: 60px;
+    font-weight: bold;
+}
+#logoCabecera{
+    width: 87px;
+    padding: 2px;
+}
+#navbar-link{
+    color:black;
+}
+#navbar-link:hover{
+    background-color: brown;
+    color:white;
+}
 .avatar{
     width:55px;
     margin-bottom: 15px;
@@ -13,14 +56,25 @@
     height: 100%;
 }
 #imgUserPerfil{
-    width:250px;
+    width:200px;
+    text-align: center;
     display: block;
-    margin-left: 30%;
+    margin-left: auto;
+    margin-right: auto;
 }
+#carouselImagenes img{
+    height: 300px;
+}
+
 #imgWinePerfil{
     height:240px;
-    margin-left: 45%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 50px;
+}
+.card:hover{
+    box-shadow: 10px 10px 14px 4px rgba(0,0,0,0.50);/*sombreado para que parezca que sobre sale de la pantalla*/
 }
 #cardWinePerfil{
     margin-top: 50px;
@@ -29,49 +83,71 @@
     display:inline-block;
 }
 #cardWinePortada{
-    height: 500px;
+    height: 420px;
     margin-bottom: 50px;
 }
 #imgWinePortada{
-    height:200px;
-    margin-left: 40%;
+    height:160px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
 }
-#headerPortada>h4{
-    font-size: 20px;
+.card-header{
+    background-color: rgba(131, 26, 26, 0.979);
+    color:white;
 }
-#imgWinePortada{
-    height:250px;
-    margin-left: 40%;
-    position: relative;
+
+#headerPortada{
+    color:white;
+    background-color: rgba(131, 26, 26, 0.979);
+    height:150px;
+}
+#headerPortada h4{
+    font-size: 18px;
+    text-align: center;
+}
+#cardbodyPortada{
+    height:500px;
 }
 #cardFooterPortada{
     width: 100%;
-    position: inline-block;
+    height: 130px;
+    display: inline-block;
 }
 #precioPortada{
     text-align: center;
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: bolder;
     padding-right: 15px;
 }
-
 #precioPortada a{
-    width: 120px;
+    width: 100px;
 }
 
-#favorito{
+.btn-favourite{
+    width: 27px;
     float: right;
+    cursor:pointer;
 }
-#favorito img{
-    width: 30px;
+.btn-quitFavourite{
+    width: 27px;
     float: right;
+    cursor:pointer;
 }
 #contaLikes{
     float: left;
     padding: 8px;
 }
-#like img{
-    width: 35px;
+.btn-like{
+    width: 27px;
     float: left;
+    cursor:pointer;
+}
+.btn-dislike {
+    width: 27px;
+    float: left;
+    cursor:pointer;
 }
 #comentarioVino{
     padding: 20px;
@@ -79,4 +155,124 @@
 #comentsUser{
     border:1px solid red;
     display: inline-block;
+}
+.carrito{
+    width:38px;
+    float:right;
+    margin-right: 20px;
+}
+#cantidadProduct{
+    width: 50px;
+    height: 30px;
+}
+#carrito-btn{
+    margin-left: 5px;
+    padding: 2px;;
+    height: 30px;;
+    width: 90px;
+}
+#imgTipoWine{
+    margin-top: 20px;
+}
+#imgTipoWine:hover{
+    transition: 3s;
+    opacity: 0.8;
+}
+#cabeceraTinto{
+    background-image: url("/img/cetalle-categoria-tinto.jpg");
+    height: 300px;
+    color:white;
+}
+#cabeceraTinto p{
+    font-size: 30px;
+    font-weight: lighter;
+    padding-left: 150px;
+    padding-top: 70px;
+    padding-bottom: 20px;
+}
+#cabeceraTinto h2{
+    font-size: 100px;
+    font-weight: lighter;
+    text-align: left;
+    padding-left: 150px;
+}
+#cabeceraRosado{
+    background-image: url("/img/cetalle-categoria-rosado.jpg");
+    height: 300px;
+    color:white;
+}
+#cabeceraRosado p{
+    font-size: 30px;
+    font-weight: lighter;
+    padding-left: 150px;
+    padding-top: 70px;
+    padding-bottom: 20px;
+}
+#cabeceraRosado h2{
+    font-size: 100px;
+    font-weight: lighter;
+    text-align: left;
+    padding-left: 150px;
+}
+#cabeceraBlanco{
+    background-image: url("/img/cetalle-categoria-blanco.jpg");
+    height: 300px;
+    color:white;
+}
+#cabeceraBlanco p{
+    font-size: 30px;
+    font-weight: lighter;
+    padding-left: 150px;
+    padding-top: 70px;
+    padding-bottom: 20px;
+}
+#cabeceraBlanco h2{
+    font-size: 100px;
+    font-weight: lighter;
+    text-align: left;
+    padding-left: 150px;
+}
+#cabeceraSumiller{
+    background-image: url("/img/carrusel_sumiller.jpg");
+    height: 300px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    color:white;
+}
+#cabeceraSumiller p{
+    font-size: 30px;
+    font-weight: lighter;
+    padding-left: 150px;
+    padding-top: 20px;
+    
+}
+#cabeceraSumiller h2{
+    font-size: 67px;
+    font-weight: lighter;
+    text-align: left;
+    padding-left: 150px;
+    padding-top: 20px;
+}
+#cabeceraUsuarios{
+    background-image: url("/img/carrusel_topusers1.jpg");
+    width: 100%;
+    height: 300px;
+    background-size: cover;
+    color:white;
+    text-align: center;
+}
+#cabeceraUsuarios p{
+    font-size: 30px;
+    font-weight: bold;
+    padding-top: 20px;
+}
+#cabeceraUsuarios h2{
+    font-size: 67px;
+    font-weight: bold;
+    padding-top: 20px;
+}
+thead,#detallePrecio{
+    background-color:rgba(131, 26, 26, 0.979);
+    color:white;
 }

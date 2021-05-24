@@ -3,83 +3,59 @@
 namespace App\Http\Controllers;
 
 use App\Models\Like;
-use Illuminate\Http\Request;
+use Auth;
+
 
 class LikeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        $this->middleware('auth');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function like($wine_id)
     {
-        //
+        //Recoger datos del usuario y el vino
+        $user = Auth::user();
+
+        //Condicion para ver si ya existe el like de ese usuario para no duplicarlo
+        $isset_like = Like::where('user_id', $user->id)->where('wine_id', $wine_id)->count();
+        if ($isset_like == 0) {
+            $like = new Like();
+            $like->user_id = $user->id;
+            $like->wine_id = (int)$wine_id;
+            //Guardar Base Datos
+            $like->save();
+            return response()->json([
+                'like' => $like
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'El like ya existe'
+            ]);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function dislike($wine_id)
     {
-        //
-    }
+        //Recoger datos del usuario y el vino
+        $user = Auth::user();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Like  $like
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Like $like)
-    {
-        //
-    }
+        //Condicion para ver si ya existe el like de ese usuario para no duplicarlo
+        $like = Like::where('user_id', $user->id)->where('wine_id', $wine_id)->first();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Like  $like
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Like $like)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Like  $like
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Like $like)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Like  $like
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Like $like)
-    {
-        //
+        if ($like) {
+            //Eliminar like
+            $like->delete();
+            return response()->json([
+                'like' => $like,
+                'message'=>'Has dado dislike correctamente'
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'El like no existe'
+            ]);
+        }
     }
 }

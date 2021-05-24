@@ -18,7 +18,6 @@ class CreateWinesTable extends Migration
             $table->double('price');
             $table->text('description')->nullable();
             $table->string('image');
-            $table->integer('num_likes')->default(0);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -15,7 +16,7 @@ class User extends Authenticatable
         'name',
         'surname',
         'nick',
-        'address',
+        'adress',
         'postal_code',
         'city',
         'phone_number',
@@ -42,6 +43,13 @@ class User extends Authenticatable
     }
     public function comments(){
         return $this->hasMany(Comment::class);
+    }
+    public function favourites(){
+        return $this->hasMany(Favourite::class);
+    }
+    public function order()
+    {
+        return $this->hasMany(Order::class);
     }
     public function isAdmin()
     {

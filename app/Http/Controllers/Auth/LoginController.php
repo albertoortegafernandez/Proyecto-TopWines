@@ -43,7 +43,6 @@ class LoginController extends Controller
                     'google_id'=> $user->id,
                     'avatar'=>$user->avatar,
                 ]);
-    
                 Auth::login($newUser);
                 return redirect('/');
             }
