@@ -3,7 +3,11 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
+<<<<<<< HEAD
         <div class="col-10 ">
+=======
+        <div class="col-10">
+>>>>>>> nueva
             <h2>Mis Productos Favoritos</h2>
             </br>
             <div class="table-responsive-sm">
