@@ -11,7 +11,7 @@
             @endif
             <div class="row">
                 <div class="col-10">
-                    <h3 style="text-align:center;">Productos disponibles en la web</h3>
+                    <h2>Productos Disponibles</h2>
                     <div class="float-right"><a href="/wines/create" class="btn btn-outline-primary">Añadir Nuevo</a></div>
 
                 </div>

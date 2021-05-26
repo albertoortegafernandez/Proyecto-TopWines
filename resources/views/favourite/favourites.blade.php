@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-10">
-            <h3 style="text-align:center;">Mis Productos Favoritos</h3>
+            <h2>Mis Productos Favoritos</h2>
             </br>
             <div class="table-responsive-sm">
             <table style="text-align:center;" class="table table-hover table-bordered table-striped">

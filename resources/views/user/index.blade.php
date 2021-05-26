@@ -11,7 +11,7 @@
             @endif
             <div class="row">
                 <div class="col-10">
-                    <h3 style="text-align:center;">Usuarios registrados en la web</h3>
+                    <h2>Usuarios Registrados</h2>
                 </div>
             </div>
             </br>

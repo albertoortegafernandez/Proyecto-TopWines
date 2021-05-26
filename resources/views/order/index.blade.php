@@ -4,9 +4,9 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             @if (Auth::user()->id==1)
-            <h3 style="text-align:center;">Pedidos realizados por los usuarios</h3>
+            <h2>Pedidos Registrados</h2>
             @else
-            <h3 style="text-align:center;">Mis Pedidos</h3>
+            <h2>Mis Pedidos</h2>
             @endif
             </br>
             <div class="table-responsive-md">
