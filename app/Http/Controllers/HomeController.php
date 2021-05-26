@@ -18,8 +18,9 @@ class HomeController extends Controller
     }
     public function index()
     {
-        $wines=Wine::all();
-        return view('home',['wines'=>$wines]);
+        $novedades=Wine::latest()->take(3)->get();/*Obtener los ultimos 3 vinos añadidos*/
+        //$wines=Wine::orderBy('id','asc')->paginate(9);/*Obtener todos los vinos*/
+        return view('home',['novedades'=>$novedades]);
     }
 
 }

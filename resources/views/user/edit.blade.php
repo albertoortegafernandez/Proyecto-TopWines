@@ -4,15 +4,13 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-
             @if(session('message'))
             <div class="alert alert-success">
                 {{session('message')}}
             </div>
             @endif
-
             <div class="card">
-                <div class="card-header">Datos del Usuario</div>
+                <div  style="text-align:center;" class="card-header"><h4><i class="fas fa-user-edit"></i> Editar Perfil</h4></div>
 
                 <div class="card-body">
                     <form method="POST" action="{{route('user.update')}}" enctype="multipart/form-data" aria-label="Configuración de la cuenta">
@@ -57,12 +55,12 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="address" class="col-md-4 col-form-label text-md-right">Direccion: </label>
+                            <label for="adress" class="col-md-4 col-form-label text-md-right">Direccion: </label>
 
                             <div class="col-md-6">
-                                <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ $user->address }}"  autocomplete="address" autofocus>
+                                <input id="adress" type="text" class="form-control @error('adress') is-invalid @enderror" name="adress" value="{{ $user->adress }}"  autocomplete="adress" autofocus>
 
-                                @error('address')
+                                @error('adress')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -139,7 +137,7 @@
                         </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-outline-primary">
                                     Guardar Cambios
                                 </button>
                             </div>

@@ -22,4 +22,13 @@ class Wine extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function favourites(){
+        return $this->hasMany(Favourite::class);
+    }
+
+    public function orderDetail()
+    {
+        return $this->hasMany(OrderDetail::class);
+    }
 }

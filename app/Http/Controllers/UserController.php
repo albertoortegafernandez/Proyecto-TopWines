@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Favourite;
+use App\Models\Like;
 use Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -17,49 +19,53 @@ class UserController extends Controller
     }
     public function index()
     {
-        $users = User::all();
+        $this->authorize('viewAny', User::class);
+        $users = User::query()->paginate(10);
         return view('user.index', ['users' => $users]);
     }
     public function create()
     {
+        $this->authorize('create', User::class);
         return view('user.create');
     }
     public function store(Request $request)
     {
         $rules = [
-            'id'=>'required|integer|unique:users,id,',
+            'id' => 'required|integer|unique:users,id,',
             'name' => 'required|string|max:255',
             'surname' => 'required|string|max:255',
             'nick' => 'required|string|max:20|unique:users,nick,', // comprueba si existe algun nick con ese nombre
             'email' => 'required|string|email|max:25|unique:users,email,', //comprueba si existe algun email igual 
-            'password'=>'required|string|min:6|confirmed',
+            'password' => 'required|string|min:6|confirmed',
         ];
         $request->validate($rules);
         // Recoger datos del formulario
-        $id=$request->id;
+        $id = $request->id;
         $name = $request->name;
         $surname = $request->surname;
         $nick = $request->nick;
-        $email=$request->email;
-        $password=$request->password;
+        $email = $request->email;
+        $password = $request->password;
 
         //Asignar los nuevos valores al objeto de vino y redirigir a la vista
         $user = new User;
-        $user->id=$id;
+        $user->id = $id;
         $user->name = $name;
         $user->surname = $surname;
         $user->nick = $nick;
         $user->email = $email;
-        $user->password=$password;
+        $user->password = $password;
         $user->save();
         return redirect('/users');
     }
     public function show(User $user)
     {
+        $this->authorize('view', $user);
         return view('user.show', ['user' => $user]);
     }
     public function edit(User $user)
     {
+        $this->authorize('update', $user);
         return view('user.edit', ['user' => $user]);
     }
     public function update(Request $request, User $user)
@@ -72,7 +78,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'surname' => 'required|string|max:255',
             'nick' => 'required|string|max:20|unique:users,nick,' . $id, // comprueba si existe algun nick con ese nombre
-            'address' => 'nullable|string|max:255',
+            'adress' => 'nullable|string|max:255',
             'postal_code' => 'nullable|integer',
             'city' => 'nullable|string|max:25',
             'phone_number' => 'nullable|integer',
@@ -84,7 +90,7 @@ class UserController extends Controller
         $surname = $request->surname;
         $nick = $request->nick;
         $postal_code = $request->postal_code;
-        $address = $request->address;
+        $adress = $request->adress;
         $city = $request->city;
         $phone_number = $request->phone_number;
         $email = $request->email;
@@ -92,7 +98,7 @@ class UserController extends Controller
         $user->name = $name;
         $user->surname = $surname;
         $user->nick = $nick;
-        $user->address = $address;
+        $user->adress = $adress;
         $user->postal_code = $postal_code;
         $user->city = $city;
         $user->phone_number = $phone_number;
@@ -100,8 +106,7 @@ class UserController extends Controller
         //Subir imagen
         $avatar = $request->avatar;
         if ($avatar) {
-            $newAvatar = time() . $avatar->getClientOriginalName(); //llamar a la imagen con el nombre del archivo que sube el usuario para su avatar
-
+            $newAvatar = time() . $avatar->getClientOriginalName(); //Recogemos la imagen del formulario y nombramos a la imagen con el nombre del archivo que sube el usuario para su avatar + el time
             Storage::disk('users')->put($newAvatar, File::get($avatar)); // Guardar la imagen en la carpeta (storage/app/users)
             $user->avatar = $newAvatar; //set de la imagen en el objeto
         }
@@ -110,14 +115,20 @@ class UserController extends Controller
     }
     public function destroy($id)
     {
+        $user = User::find($id); //Buscamos el usuario con el id obtenido
+        $userlog = Auth::user(); //Buscamos el usuario que está autenticado
+        $this->authorize('delete', $user);
+
+        Storage::disk('users')->delete($user->avatar); //Borramos la imagen de avatar  del usuario del disco
+        Favourite::where('user_id', $id)->delete(); //Borramos sus comentarios
+        Like::where('user_id', $id)->delete(); //Borramos sus likes
         User::destroy($id);
-        $userlog=Auth::user();
-        $idUserlog=$userlog->id;
-        if($idUserlog!=1){
-            return redirect('home')->with('status', 'Usuario Borrado');//Si el usuario registrado no es el admin que lo devuelva al home
-        }else{
-            return redirect ('users/')->with('status', 'Usuario Borrado');//si es admin a la vista de los usuarios registrados
-        } 
+        $idUserlog = $userlog->id;
+        if ($idUserlog != 1) {
+            return redirect('home')->with('status', 'Usuario Borrado'); //Si el usuario registrado no es el admin que lo devuelva al home
+        } else {
+            return redirect('users/')->with('status', 'Usuario Borrado'); //si es admin a la vista de los usuarios registrados
+        }
     }
     public function getImage($filename)
     {

@@ -41,14 +41,14 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
-
+        //Creamos este disco para las imagenes avatar de los usuarios
         'users' => [
             'driver' => 'local',
             'root' => storage_path('app/users'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
-
+        //Creamos este disco para almacenar las imagenes de los vinos
         'wines' => [
             'driver' => 'local',
             'root' => storage_path('app/wines'),

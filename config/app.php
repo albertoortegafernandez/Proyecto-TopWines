@@ -161,12 +161,14 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
+        
         /*
          * Package Service Providers...
          */
         Laravel\Socialite\SocialiteServiceProvider::class,
         \Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
+        Darryldecode\Cart\CartServiceProvider::class,
+        //Laravel\Cashier\CashierServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -230,6 +232,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Socialite'=>Laravel\Socialite\Facades\Socialite::class,
         'NoCaptcha' => \Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
+        'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
     ],
 
 ];

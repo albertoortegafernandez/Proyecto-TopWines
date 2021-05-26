@@ -10,14 +10,15 @@ class WineSeeder extends Seeder
     public function run()
     {
         Wine::create([
-            'name'=>'Campo Viejo Tempranillo2',
+            'name'=>'Campo Viejo Tempranillo',
             'origin'=>'Rioja',
             'category'=>'Tinto',
             'type'=>'Tempranillo',
             'price'=>'3.5',
-            'description'=>'jdhfdhsug',
+            'description'=>'',
             'image'=>'campViejoTemp.png',
             'user_id'=>1,
         ]);
+        
     }
 }

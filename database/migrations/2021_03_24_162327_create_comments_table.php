@@ -14,8 +14,8 @@ class CreateCommentsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('wine_id');
             $table->string('content');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('wine_id')->references('id')->on('wines');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('wine_id')->references('id')->on('wines')->onDelete('cascade');
             $table->timestamps();
         });
     }

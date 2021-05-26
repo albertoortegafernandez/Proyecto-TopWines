@@ -5,15 +5,16 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">
-                    <div><img src="{{route('user.avatar',['filename'=>$user->avatar])}}" class="img img-fluid" id="imgUserPerfil"></div>
+                <div class="row">
+                    <div class="col-12">
+                        <div id="fotoPerfil" class="card-header">
+                            <div><img src="{{route('user.avatar',['filename'=>$user->avatar])}}" class="img img-fluid" id="imgUserPerfil"></div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><strong>ID: </strong>
-                                {{$user->id}}
-                            </li>
                             <li class="list-group-item"><strong>Nombre: </strong>
                                 {{$user->name}}
                             </li>
@@ -44,18 +45,40 @@
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-md-6 offset-md-4 ">
-                            <div><a class="col-md-6 btn btn-primary btn-lg"  href="/users">Volver</a></div>
+                            <div><a class="col-md-4 btn btn-outline-primary btn-sm" href="{{route('home')}}">Volver</a></div>
                         </div>
                     </div>
                 </div>
             </div>
             <br>
             @if(Auth::user()->name!="administrador")
-                <form action="/users/{{$user->id}}" method="POST">
-                                @csrf
-                                <input type="hidden" name="_method" value="DELETE">
-                                <input class="btn btn-sm btn-outline-danger" type="submit" style="float:right;" value="Eliminar Cuenta">
-                </form>
+            <td>
+                <button class="btn btn-sm btn-outline-danger" type="button" data-toggle="modal" data-target="#modalCentered" style="float:right;"><i class="fas fa-trash-alt"></i>  Eliminar Cuenta</button>
+                <!-- Modal -->
+                <div class="modal" id="modalCentered" tabindex="-1" role="dialog" aria-labelledby="modalCenteredLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalCenteredLabel">Aviso</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Esta seguro de eliminar su cuenta definitivamente
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <form action="/users/{{$user->id}}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button class="btn btn-outline-danger" type="submit"><i class="fas fa-trash-alt"></i> Si, estoy seguro</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
             @endif
         </div>
     </div>
