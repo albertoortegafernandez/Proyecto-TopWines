@@ -1,19 +1,24 @@
 @extends('layouts.app')
 @section('content')
+<div class="container-fluid">
 <div class="row">
-<div class="col-12" id="cabeceraUsuarios">
-    <h2>Top</h2>
-    <h2>de los</h2>
-    <h2>Usuarios</h2>
+    <div class="col-12" id="cabeceraUsuarios">
+        <h2>Top</h2>
+        <h2>de los</h2>
+        <h2>Usuarios</h2>
+    </div>
 </div>
 </div>
 <div class="container">
     <div class="row ">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
             <div class="row" style="margin-top:50px;">
-                @foreach ($topwines as $topwine)<!--Obtengo el resultado de la consulta join con resultado de wine_id que es el id del vino-->
-                @foreach ($wines as $wine)<!--recorro los vinos para obtener todo su contenido-->
-                @if($topwine->wine_id == $wine->id )<!-- cuando sea el id igual al obtenido en la consulta de los likes, saco todo el contenido del vino-->
+                @foreach ($topwines as $topwine)
+                <!--Obtengo el resultado de la consulta join con resultado de wine_id que es el id del vino-->
+                @foreach ($wines as $wine)
+                <!--recorro los vinos para obtener todo su contenido-->
+                @if($topwine->wine_id == $wine->id )
+                <!-- cuando sea el id igual al obtenido en la consulta de los likes, saco todo el contenido del vino-->
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 justify-content-center">
                     <div class="card" id="cardWinePortada">
                         <div class="card-header" id="headerPortada">
