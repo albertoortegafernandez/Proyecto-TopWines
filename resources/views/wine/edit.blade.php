@@ -39,7 +39,7 @@
                                     <option value="Rioja">Rioja</option>
                                     <option value="R.Duero">Ribera del Duero</option>
                                     <option value="Borja">Borja</option>
-                                    <option value="Valdepenyas">Valdepeñas</option>
+                                    <option value="Toro">Toro</option>
                                     <option value="Priorat">Priorat</option>
                                     <option value="Somontano">Somontano</option>
                                     <option value="Rias Baixas">Rías Baixas</option>
