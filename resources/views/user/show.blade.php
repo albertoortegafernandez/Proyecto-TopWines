@@ -43,17 +43,19 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <div class="row">
-                        <div class="col-md-6 offset-md-4 ">
-                            <div><a class="col-md-4 btn btn-outline-primary btn-sm" href="{{route('home')}}">Volver</a></div>
-                        </div>
+                    @if(Auth::user()->nick=="admin")
+                    <div><a class="btn btn-sm btn-outline-primary" style="float:left" href="/">Inicio</a>
+                        <a style="float:right" href="/users">Listado de usuarios</a>
                     </div>
+                    @else
+                    <div><a class="btn btn-outline-primary btn-sm" style="margin-left:45%;" href="/">Inicio</a></div>
+                    @endif
                 </div>
             </div>
             <br>
             @if(Auth::user()->name!="administrador")
             <td>
-                <button class="btn btn-sm btn-outline-danger" type="button" data-toggle="modal" data-target="#modalCentered" style="float:right;"><i class="fas fa-trash-alt"></i>  Eliminar Cuenta</button>
+                <button class="btn btn-sm btn-outline-danger" type="button" data-toggle="modal" data-target="#modalCentered" style="float:right;"><i class="fas fa-trash-alt"></i> Eliminar Cuenta</button>
                 <!-- Modal -->
                 <div class="modal" id="modalCentered" tabindex="-1" role="dialog" aria-labelledby="modalCenteredLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
