@@ -38,7 +38,7 @@ class WineController extends Controller
         if (!empty($category)) {
             $wines = $query->where('category', 'like', $category);
         }
-        $wines = $query->paginate(10); //Recogemos los resultados del filtrado
+        $wines = $query->paginate(15); //Recogemos los resultados del filtrado
 
         return view('wine.index', ['wines' => $wines,'name' => $name, 'origin' => $origin, 'type' => $type,'category'=>$category]);
     }
