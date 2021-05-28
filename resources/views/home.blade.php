@@ -9,13 +9,12 @@
                         <li data-target="#carouselCaptions" data-slide-to="0" class="active"></li>
                         <li data-target="#carouselCaptions" data-slide-to="1"></li>
                         <li data-target="#carouselCaptions" data-slide-to="2"></li>
-                        <li data-target="#carouselCaptions" data-slide-to="3"></li>
                     </ol>
                     <div class="carousel-inner" role="listbox">
                         <div class="carousel-item active">
                             <img class=" img img-fluid w-100 d-block " src="{{asset('img/carrusel_home1.jpg')}}" alt="0 slide">
                             <div class="carousel-caption d-none d-md-block">
-                                <h3 style="text-align:left;padding-bottom:30px;" class="d-block ">AMANTES DEL BUEN VINO</h3>
+                                <h3 style="text-align:left;padding-bottom:80px;" class="d-block ">AMANTES DEL BUEN VINO</h3>
                             </div>
                         </div>
                         <div class="carousel-item">
@@ -24,14 +23,9 @@
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <img class=" img img-fluid d-block w-100" src="{{asset('img/carrusel_home2.jpg')}}" alt="second slide">
-                            <div class="carousel-caption d-none d-md-block">
-                            </div>
-                        </div>
-                        <div class="carousel-item">
                             <img class="img img-fluid d-block w-100" src="{{asset('img/carrusel_home3.jpg')}}" alt="three slide">
                             <div class="carousel-caption d-none d-md-block">
-                                <h3 style="text-align:left;padding-bottom:200px;" class="d-block ">Contacta con Nuestro Sumiller</h3>
+                                <h3 style="text-align:left;padding-bottom:100px;" class="d-block ">Contacta con Nuestro Sumiller</h3>
                             </div>
                         </div>
                     </div>

@@ -30,7 +30,7 @@
                         <tr>
                             <td>{{($producto->created_at)->format('d-m-Y')}}</td>
                             <td>{{$producto->wine->name}}</td>
-                            <td>{{$producto->quantity}}</td>
+                            <td> {{$producto->quantity}}</td>
                             <td>{{$producto->wine->price}} €</td>
                         </tr>
                         @endforeach

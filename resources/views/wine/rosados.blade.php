@@ -106,7 +106,9 @@
         </div>
         @endforeach
     </div>
-    {{$wines->links('pagination::bootstrap-4')}}
+    <div class="row col-12 ">
+        <div class="col-1 pagination-sm ">{{$wines->links('pagination::bootstrap-4')}}</div>
+    </div>
 </div>
 </div>
 </div>

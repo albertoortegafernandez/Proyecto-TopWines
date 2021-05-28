@@ -80,7 +80,7 @@
                 @endforeach
                 @endforeach
             </div>
-            <div class="col-8 offset-4">{{$wines->links('pagination::bootstrap-4')}}</div>
+            
         </div>
     </div>
 </div>

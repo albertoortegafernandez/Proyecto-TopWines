@@ -75,8 +75,8 @@ class FavouriteController extends Controller
     public function favouritesSumiller(){
         $id=2;//Id del sumiller
         $user=User::find($id);//Obtengo todos los datos de sumiller
-        $favourites=Favourite::where('user_id',$user->id)->get();//Selecciono todos sus favoritos        
-        $wines=Wine::query()->paginate(9);//Obtengo los datos de los vinos 
+        $favourites=Favourite::where('user_id',$user->id)->paginate(9);//Selecciono sus primeros 9 favoritos        
+        $wines=Wine::query()->get();//Obtengo los datos de los vinos 
         return view ("favourite.topSumiller",['wines'=>$wines,'favourites'=>$favourites]);
     }
 

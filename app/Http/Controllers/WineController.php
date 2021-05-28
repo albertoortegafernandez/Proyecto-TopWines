@@ -18,11 +18,29 @@ class WineController extends Controller
     {
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('viewAny', Wine::class);
-        $wines = Wine::query()->paginate(10);
-        return view('wine.index', ['wines' => $wines]);
+        $name = $request->name;
+        $origin = $request->origin;
+        $type = $request->type;
+        $category= $request->category;
+        $query = Wine::query(); 
+        if (!empty($name)) {
+            $wines = $query->where('name', 'like', "%$name%");
+        }
+        if (!empty($origin)) {
+            $wines = $query->where('origin', 'like', $origin);
+        }
+        if (!empty($type)) {
+            $wines = $query->where('type', 'like', $type);
+        }
+        if (!empty($category)) {
+            $wines = $query->where('category', 'like', $category);
+        }
+        $wines = $query->paginate(10); //Recogemos los resultados del filtrado
+
+        return view('wine.index', ['wines' => $wines,'name' => $name, 'origin' => $origin, 'type' => $type,'category'=>$category]);
     }
 
     public function create()

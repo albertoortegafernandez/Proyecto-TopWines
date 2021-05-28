@@ -10,11 +10,25 @@
             </div>
             @endif
             <div class="row">
-                <div class="col-10">
+                <div class="col-12">
                     <h2>Usuarios Registrados</h2>
+                    <br>
+                    <div class="row">
+                        <div class="col-12 ">
+                            <div style="display:inline-block;">
+                                <form class="form-inline" action="/users" method="get">
+                                    <input class="form-control" type="text" name="name" placeholder="Nombre" value="{{$name}}">
+                                    <input class="form-control" type="text" name="surname" placeholder="Apellidos" value="{{$surname}}">
+                                    <input class="form-control" type="text" name="nick" placeholder="Nick" value="{{$nick}}">
+                                    <input class="form-control" type="text" name="city" placeholder="Ciudad" value="{{$city}}">
+                                    <button class="btn btn-outline-danger btn-sm" type="submit"><i class="fas fa-search"></i> Filtrar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            </br>
+            </br></br>
             <div class="table-responsive-md">
                 <div style="text-align:center;" class="row justify-content-center">
                     <div class="col-12">
@@ -24,7 +38,7 @@
                                 <th>Nombre</th>
                                 <th>Apellidos</th>
                                 <th>Nick</th>
-                                <th>Direccion</th>
+                                <th>Dirección</th>
                                 <th>C.P</th>
                                 <th>Ciudad</th>
                                 <th>Teléfono</th>

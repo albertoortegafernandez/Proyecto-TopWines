@@ -2,9 +2,20 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12">
+        <div class="col-12">
             @if (Auth::user()->id==1)
             <h2>Pedidos Registrados</h2>
+            </br>
+            <div class="row">
+                        <div class="col-10 offset-2">
+                            <div style="display:inline-block;">
+                                <form class="form-inline" action="/orders" method="get">
+                                    <input class="form-control" type="text" name="user_id" placeholder="ID del Usuario" value="{{$user_id}}">
+                                    <button class="btn btn-outline-danger btn-sm" type="submit"><i class="fas fa-search"></i> Filtrar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
             @else
             <h2>Mis Pedidos</h2>
             @endif

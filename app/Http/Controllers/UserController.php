@@ -17,11 +17,30 @@ class UserController extends Controller
     {
         $this->middleware('auth');
     }
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('viewAny', User::class);
-        $users = User::query()->paginate(10);
-        return view('user.index', ['users' => $users]);
+        $name = $request->name;
+        $surname = $request->surname;
+        $nick = $request->nick;
+        $city =$request->city;
+
+        $query = User::query(); 
+        if (!empty($name)) {
+            $users = $query->where('name', 'like', "%$name%");
+        }
+        if (!empty($surname)) {
+            $users = $query->where('surname', 'like', "%$surname%");
+        }
+        if (!empty($nick)) {
+            $users = $query->where('nick', 'like', "%$nick%");
+        }
+        if (!empty($city)) {
+            $users = $query->where('city', 'like', "%$city%");
+        }
+        $users = $query->paginate(10); //Recogemos los resultados del filtrado
+
+        return view('user.index', ['users' => $users,'name' => $name, 'surname' => $surname, 'nick' => $nick,'city'=>$city]);
     }
     public function create()
     {
