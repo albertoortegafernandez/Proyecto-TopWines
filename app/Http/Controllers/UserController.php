@@ -19,13 +19,15 @@ class UserController extends Controller
     }
     public function index(Request $request)
     {
+        //Politica de autorizacion
         $this->authorize('viewAny', User::class);
+        // Recogemos los datos del formulario de busqueda
         $name = $request->name;
         $surname = $request->surname;
         $nick = $request->nick;
-        $city =$request->city;
+        $city = $request->city;
 
-        $query = User::query(); 
+        $query = User::query();
         if (!empty($name)) {
             $users = $query->where('name', 'like', "%$name%");
         }
@@ -38,23 +40,25 @@ class UserController extends Controller
         if (!empty($city)) {
             $users = $query->where('city', 'like', "%$city%");
         }
-        $users = $query->paginate(10); //Recogemos los resultados del filtrado
+        $users = $query->paginate(10); //Recogemos los resultados del filtrado y paginamos para cada 10 productos
 
-        return view('user.index', ['users' => $users,'name' => $name, 'surname' => $surname, 'nick' => $nick,'city'=>$city]);
+        return view('user.index', ['users' => $users, 'name' => $name, 'surname' => $surname, 'nick' => $nick, 'city' => $city]);
     }
     public function create()
     {
+        //Politica de autotización
         $this->authorize('create', User::class);
         return view('user.create');
     }
     public function store(Request $request)
     {
+        //validación de los datos recogidos del formulario de creación
         $rules = [
             'id' => 'required|integer|unique:users,id,',
             'name' => 'required|string|max:255',
             'surname' => 'required|string|max:255',
             'nick' => 'required|string|max:20|unique:users,nick,', // comprueba si existe algun nick con ese nombre
-            'email' => 'required|string|email|max:25|unique:users,email,', //comprueba si existe algun email igual 
+            'email' => 'required|string|email|max:25|unique:users,email,', //comprueba si existe algun email igual
             'password' => 'required|string|min:6|confirmed',
         ];
         $request->validate($rules);
@@ -79,11 +83,13 @@ class UserController extends Controller
     }
     public function show(User $user)
     {
+        //Politica de autorización
         $this->authorize('view', $user);
         return view('user.show', ['user' => $user]);
     }
     public function edit(User $user)
     {
+        //Politica de autorización
         $this->authorize('update', $user);
         return view('user.edit', ['user' => $user]);
     }
@@ -101,7 +107,7 @@ class UserController extends Controller
             'postal_code' => 'nullable|integer',
             'city' => 'nullable|string|max:25',
             'phone_number' => 'nullable|integer',
-            'email' => 'required|string|email|max:25|unique:users,email,' . $id, //comprueba si existe algun email igual 
+            'email' => 'required|string|email|max:25|unique:users,email,' . $id, //comprueba si existe algun email igual
         ];
         $request->validate($rules);
         // Recoger datos del formulario
@@ -127,7 +133,7 @@ class UserController extends Controller
         if ($avatar) {
             $newAvatar = time() . $avatar->getClientOriginalName(); //Recogemos la imagen del formulario y nombramos a la imagen con el nombre del archivo que sube el usuario para su avatar + el time
             Storage::disk('users')->put($newAvatar, File::get($avatar)); // Guardar la imagen en la carpeta (storage/app/users)
-            $user->avatar = $newAvatar; //set de la imagen en el objeto
+            $user->avatar = $newAvatar; //set de la imagen en el objeto(actualizamos)
         }
         $user->update();
         return view('user.show', ['user' => $user]);
@@ -136,7 +142,7 @@ class UserController extends Controller
     {
         $user = User::find($id); //Buscamos el usuario con el id obtenido
         $userlog = Auth::user(); //Buscamos el usuario que está autenticado
-        $this->authorize('delete', $user);
+        $this->authorize('delete', $user);//Politica de autorización
 
         Storage::disk('users')->delete($user->avatar); //Borramos la imagen de avatar  del usuario del disco
         Favourite::where('user_id', $id)->delete(); //Borramos sus comentarios

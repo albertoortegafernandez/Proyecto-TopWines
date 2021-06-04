@@ -20,6 +20,7 @@
                         <div class="carousel-item">
                             <img class=" img img-fluid d-block w-100" src="{{asset('img/carrusel_home.jpg')}}" alt="First slide">
                             <div class="carousel-caption d-none d-md-block">
+                                <h3 style="text-align:right;padding-bottom:80px;" class="d-block ">" LAS MEJORES VIÑAS ESTARÁN EN TU BODEGA " </h3>
                             </div>
                         </div>
                         <div class="carousel-item">
@@ -70,7 +71,7 @@
                         <form action="{{route('cart.add')}}" method="POST">
                             @csrf
                             <input type="hidden" name="wine_id" value="{{$nuevo->id}}">
-                            <input id="cantidadProduct" type="number" value="1" name="quantity" min="1" max="500">
+                            <input id="cantidadProduct" type="number" value="1" name="quantity" min="1" max="500"><!-- Añadir la cantidad para añadir a la cesta -->
                             <button id="carrito-btn" type="submit" class="btn btn-md btn-outline-warning"><i class="fas fa-cart-arrow-down"></i> Añadir</button>
                         </form>
                     </div>
@@ -80,13 +81,13 @@
                         <!--Comprobar si el usuario ha dado like anteriormente-->
                         <?php $user_like = false; ?>
                         @foreach ($nuevo->likes as $like )
-                        @if($like->user_id == Auth::user()->id)
+                        @if($like->user_id == Auth::user()->id)<!-- Si el usuario logueado a dado like en ese producto convertimos a true -->
                         <?php $user_like = true; ?>
                         @endif
                         @endforeach
-                        @if($user_like)
+                        @if($user_like)<!-- si esta a true mostramos el icono en azul -->
                         <img class="btn-dislike" data-id="{{$nuevo->id}}" src="{{asset('img/like-blue.png')}}" />
-                        @else
+                        @else <!-- si esta en falso mostramos el icono negro -->
                         <img class="btn-like" data-id="{{$nuevo->id}}" src="{{asset('img/like-black.png')}}" />
                         @endif
                         @else
@@ -98,13 +99,13 @@
                         <!--Comprobar si el usuario ha dado favorito anteriormente-->
                         <?php $user_favourite = false; ?>
                         @foreach ($nuevo->favourites as $favourite )
-                        @if($favourite->user_id == Auth::user()->id)
+                        @if($favourite->user_id == Auth::user()->id)<!-- Si el usuario logueado a dado favorito en ese producto convertimos a true -->
                         <?php $user_favourite = true; ?>
                         @endif
                         @endforeach
-                        @if($user_favourite)
+                        @if($user_favourite)<!-- si esta a true mostramos el icono en rojo -->
                         <img class="btn-quitFavourite" data-id="{{$nuevo->id}}" src="{{asset('img/heart-red.png')}}" />
-                        @else
+                        @else<!-- si esta en falso mostramos el icono negro -->
                         <img class="btn-favourite" data-id="{{$nuevo->id}}" src="{{asset('img/heart-black.png')}}" />
                         @endif
                         @else

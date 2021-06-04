@@ -20,12 +20,14 @@ class WineController extends Controller
 
     public function index(Request $request)
     {
+        //Politica de autorizacion
         $this->authorize('viewAny', Wine::class);
+        //Filtrado de lo que recoge en el formulario de busqueda
         $name = $request->name;
         $origin = $request->origin;
         $type = $request->type;
-        $category= $request->category;
-        $query = Wine::query(); 
+        $category = $request->category;
+        $query = Wine::query();
         if (!empty($name)) {
             $wines = $query->where('name', 'like', "%$name%");
         }
@@ -40,11 +42,12 @@ class WineController extends Controller
         }
         $wines = $query->paginate(15); //Recogemos los resultados del filtrado
 
-        return view('wine.index', ['wines' => $wines,'name' => $name, 'origin' => $origin, 'type' => $type,'category'=>$category]);
+        return view('wine.index', ['wines' => $wines, 'name' => $name, 'origin' => $origin, 'type' => $type, 'category' => $category]);
     }
 
     public function create()
     {
+        //Politica de autorizacion
         $this->authorize('create', Wine::class);
         return view('wine.create');
     }
@@ -54,7 +57,7 @@ class WineController extends Controller
         //Consigue el usuario identificado
         $user = Auth::user();
         $id = $user->id;
-
+        //Validación de los campos del fomulario
         $request->validate([
             'image' => 'required|image',
             'name' => 'required|string|max:400',
@@ -64,7 +67,6 @@ class WineController extends Controller
             'price' => 'required|numeric',
             'description' => 'required|string|max:200000',
         ]);
-
         // Recoger datos del formulario
         $name = $request->name;
         $origin = $request->origin;
@@ -86,7 +88,7 @@ class WineController extends Controller
         //Subir imagen
         $image = $request->image;
         if ($image) {
-            $newImage = time() . $image->getClientOriginalName(); //llamar a la imagen con el nombre del archivo que sube el admin para el vino
+            $newImage = time() . $image->getClientOriginalName(); //llamar a la imagen con el nombre del archivo que sube el admin para el vino + funcion time para hacerla unica
             Storage::disk('wines')->put($newImage, File::get($image)); // Guardar la imagen en la carpeta (storage/app/wines)
             $wine->image = $newImage;
         }
@@ -101,12 +103,14 @@ class WineController extends Controller
 
     public function edit(Wine $wine)
     {
+        //Politica de autorizacion
         $this->authorize('update', $wine);
         return view('wine.edit', ['wine' => $wine]);
     }
 
     public function update(Request $request, Wine $wine)
     {
+        //Validación de los campos del formulario
         $request->validate([
             'image' => 'required|image',
             'name' => 'required|string|max:400',
@@ -120,7 +124,7 @@ class WineController extends Controller
         //Subir imagen
         $image = $request->image;
         if ($image) {
-            $newImage = time() . $image->getClientOriginalName(); //llamar a la imagen con el nombre del archivo que sube el admin para el vino
+            $newImage = time() . $image->getClientOriginalName(); //llamar a la imagen con el nombre del archivo que sube el admin para el vino y le añadimos el time
             Storage::disk('wines')->put($newImage, File::get($image)); // Guardar la imagen en la carpeta (storage/app/wines)
             $wine->image = $newImage;
         }
@@ -132,6 +136,7 @@ class WineController extends Controller
     {
         $user = Auth::user();
         $wine = Wine::find($id);
+        //Politica de autorizacion
         $this->authorize('delete', Wine::class);
         Storage::disk('wines')->delete($wine->image);/*Borramos la imagen del vino del disco*/
         Like::where('wine_id', $id)->delete();/*Borramos sus likes*/
@@ -140,13 +145,15 @@ class WineController extends Controller
         return back()->with('status', 'Producto Borrado');
     }
 
-    public function getImage($filename)//Funcion para obtener la imagen del disco
+    public function getImage($filename) //Funcion para obtener la imagen del disco
     {
-        $file = Storage::disk('wines')->get($filename);
-        return new Response($file, 200);
+        $file = Storage::disk('wines')->get($filename); //Recoger el archivo guardado en el disco wines con el nombre recibido por el paramentro
+        return new Response($file, 200); //Devolvemos el archivo
     }
+
     public function tintos(Request $request)
     {
+        //Recogemos los datos obtenidos del formulario de busqueda
         $name = $request->name;
         $origin = $request->origin;
         $type = $request->type;
@@ -161,11 +168,12 @@ class WineController extends Controller
             $query = $query->where('type', 'like', "%$type%");
         }
         $wines = $query->get(); //Recogemos los resultados del filtrado
-        $wines = $query->paginate(9);
+        $wines = $query->paginate(9); //Paginamos los resultados en 9 productos por página
         return view('wine.tintos', ['wines' => $wines, 'name' => $name, 'origin' => $origin, 'type' => $type]);
     }
     public function rosados(Request $request)
     {
+        //Recogemos los datos obtenidos del formulario de busqueda
         $name = $request->name;
         $origin = $request->origin;
         $type = $request->type;
@@ -180,11 +188,12 @@ class WineController extends Controller
             $query = $query->where('type', 'like', "%$type%");
         }
         $wines = $query->get(); //Recogemos los resultados del filtrado
-        $wines = $query->paginate(9);
+        $wines = $query->paginate(9); //Paginamos los resultados en 9 productos por página
         return view('wine.rosados', ['wines' => $wines, 'name' => $name, 'origin' => $origin, 'type' => $type]);
     }
     public function blancos(Request $request)
     {
+        //Recogemos los datos obtenidos del formulario de busqueda
         $name = $request->name;
         $origin = $request->origin;
         $type = $request->type;
@@ -199,17 +208,17 @@ class WineController extends Controller
             $query = $query->where('type', 'like', "%$type%");
         }
         $wines = $query->get(); //Recogemos los resultados del filtrado
-        $wines = $query->paginate(9);
+        $wines = $query->paginate(9); //Paginamos los resultados en 9 productos por página
         return view('wine.blancos', ['wines' => $wines, 'name' => $name, 'origin' => $origin, 'type' => $type]);
     }
     public function topUsers()
     {
         //Consulta para obtener y ordenar por mayor numero de likes dados por los usuarios y los obtengo con valor wine_id
-        $topwines = Wine::select(DB::raw('wine_id'))
+        $topwines = Wine::select(DB::raw('wine_id'))//Crea una nueva columna con nombre wine_id
             ->leftjoin('likes', 'wine_id', '=', 'wine_id')
             ->groupBy('wine_id')
             ->orderBy(DB::raw('COUNT(wine_id)'), 'DESC')
-            ->take(9)->get();//obtiene solo 9,para mostrar en pantalla unicamente los 9 más votados
+            ->take(9)->get(); //obtiene solo 9 resultados,para mostrar en pantalla unicamente los 9 más votados
 
         $wines = Wine::all();
 

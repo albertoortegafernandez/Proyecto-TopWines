@@ -10,9 +10,12 @@
             </div>
             @endif
             <div class="card">
-                <div class="card-header text-md-center"><h4>Añadir Nuevo Producto</h4></div>
+                <div class="card-header text-md-center">
+                    <h4>Añadir Nuevo Producto</h4>
+                </div>
                 <div class="card-body">
                     <form method="POST" action="/wines" enctype="multipart/form-data">
+                        <!--Configuración para subir archivos-->
                         @csrf
                         <div class="form-group row">
                             <label for="image" class="col-md-4 col-form-label text-md-right">Imagen: </label>

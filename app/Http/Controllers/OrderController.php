@@ -15,9 +15,10 @@ class OrderController extends Controller
 
     public function index(Request $request)
     {
+        //Politica de autorización
         $this->authorize('viewAny',Order::class);
-        $user_id = $request->user_id;
-        $query = Order::orderBy('created_at','desc');//Ordena en la tabla por orden de fecha mas reciente 
+        $user_id = $request->user_id;//Recogemos el id obtenido del formulario de busqueda
+        $query = Order::orderBy('created_at','desc');//Ordena en la tabla por orden de fecha mas reciente
         if (!empty($user_id)) {
             $pedidos = $query->where('user_id', 'like', "%$user_id%");
         }
@@ -28,8 +29,11 @@ class OrderController extends Controller
 
     public function details($id)
     {
+        //Buscamos el id  recibido perteneciente a la orden con ese id
         $order=Order::find($id);
+        //Politicas de autorizacion
         $this->authorize('details',$order);
+        //Obtener los detalles del pedido con el id recibido
         $detalles=OrderDetail::where('order_id',$order->id)->get();
        return view('order.details',['order'=>$order,'detalles'=>$detalles]);
     }

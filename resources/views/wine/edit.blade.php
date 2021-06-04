@@ -5,30 +5,32 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header text-md-center"><h4><i class="fas fa-edit"></i> Editar Producto</h4></div>
+                <div class="card-header text-md-center">
+                    <h4><i class="fas fa-edit"></i> Editar Producto</h4>
+                </div>
                 <div class="card-body">
                     <form method="POST" action="/wines/{{$wine->id}}" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="_method" value="PUT">
                         <div class="form-group row">
-                            <label for="image" class="col-md-4 col-form-label text-md-right"><img style="height:100px;"src="{{ route('wine.image',['filename'=>$wine->image]) }}"/></label>
+                            <label for="image" class="col-md-4 col-form-label text-md-right"><img style="height:100px;" src="{{ route('wine.image',['filename'=>$wine->image]) }}" /></label>
                             <div class="col-md-7">
-                                <input id="image" type="file" name="image" class="form-control-file"  value="{{old('image') ?? $wine->image}}"/>
+                                <input id="image" type="file" name="image" class="form-control-file" value="{{old('image') ?? $wine->image}}" />
                                 @error('image')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">Nombre</label>
                             <div class="col-md-7">
-                                <input id="name" type="text" name="name" class="form-control" value="{{old('name') ?? $wine->name}}"/>
+                                <input id="name" type="text" name="name" class="form-control" value="{{old('name') ?? $wine->name}}" />
                                 @error('name')
-                                    <div class="text-danger">
-                                        <strong>{{ $message }}</strong>
-                                    </div>
+                                <div class="text-danger">
+                                    <strong>{{ $message }}</strong>
+                                </div>
                                 @enderror
                             </div>
                         </div>
@@ -72,22 +74,22 @@
                         <div class="form-group row">
                             <label for="price" class="col-md-4 col-form-label text-md-right">Precio</label>
                             <div class="col-md-7">
-                                <input id="price" type="text" name="price" class="form-control" value="{{old('price') ?? $wine->price}}"/>
+                                <input id="price" type="text" name="price" class="form-control" value="{{old('price') ?? $wine->price}}" />
                                 @error('price')
-                                    <div class="text-danger">
-                                        <strong>{{ $message }}</strong>
-                                    </div>
+                                <div class="text-danger">
+                                    <strong>{{ $message }}</strong>
+                                </div>
                                 @enderror
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="description" class="col-md-4 col-form-label text-md-right">Descripción</label>
                             <div class="col-md-7">
-                                <input id="description" name="description" type="text" class="form-control" value="{{old('description') ?? $wine->description}}"/>
+                                <input id="description" name="description" type="text" class="form-control" value="{{old('description') ?? $wine->description}}" />
                                 @error('description')
-                                    <div class="text-danger">
-                                        <strong>{{ $message }}</strong>
-                                    </div>
+                                <div class="text-danger">
+                                    <strong>{{ $message }}</strong>
+                                </div>
                                 @enderror
                             </div>
                         </div>

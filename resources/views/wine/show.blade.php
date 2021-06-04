@@ -60,7 +60,7 @@
                                 {{$wine->type}}
                             </li>
                             <li class="list-group-item"><strong>Precio: </strong>
-                                {{$wine->price}}
+                                {{$wine->price}} €
                             </li>
                             <li class="list-group-item"><strong>Descripcion: </strong>
                                 <p>{{$wine->description}}</p>
@@ -90,9 +90,9 @@
                         <hr>
                         @foreach ($wine->comments as $comment )
                         <div class="comment">
-                            <span>@include('includes.userComent'){{' @'.$comment->user->nick}}</span>
-                            <span>{{' | '.($comment->created_at)->format('d-m-Y')}}</span>
-                            @if(Auth::check() &&($comment->user_id == Auth::user()->id || Auth::user()->nick=='admin'))
+                            <span>@include('includes.userComent'){{' @'.$comment->user->nick}}</span> <!--Añadimos el nick y avatar-->
+                            <span>{{' | '.($comment->created_at)->format('d-m-Y')}}</span><!--fecha del comentario -->
+                            @if(Auth::check() &&($comment->user_id == Auth::user()->id || Auth::user()->nick=='admin')) <!-- Si el usuario logueado es el mismo que el comentario o admin puede eliminar el comentario-->
                             <span style="margin-top:0%;float:right;">
                                 <form action="/comments/{{$comment->id}}" method="POST">
                                     @csrf

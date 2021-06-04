@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12">
-            @if (Auth::user()->id==1)
+            @if (Auth::user()->id==1)<!--Si el usuario es administrador-->
             <h2>Pedidos Registrados</h2>
             </br>
             <div class="row">
@@ -16,7 +16,7 @@
                             </div>
                         </div>
                     </div>
-            @else
+            @else<!-- Para los demás usuarios -->
             <h2>Mis Pedidos</h2>
             @endif
             </br>
@@ -33,7 +33,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($pedidos as $pedido)
-                                @if(Auth::user()->id==$pedido->user_id)
+                                @if(Auth::user()->id==$pedido->user_id)<!--Muestra los resultados del usuario logueado-->
                                 <tr>
                                     <td>{{$pedido->codigo}}</td>
                                     <td>{{$pedido->user_id}}</td>
@@ -41,7 +41,7 @@
                                     <td>{{($pedido->created_at)->format('d-m-Y')}}</td>
                                     <td><a class="btn btn-sm btn-outline-info" href="/orders/{{$pedido->id}}"><i class="fas fa-search"></i></a></td>
                                 </tr>
-                                @elseif (Auth::user()->id==1)
+                                @elseif (Auth::user()->id==1)<!--Si el usuario logueado es admin, muestra tododos los pedidos realizados por los usuarios -->
                                 <tr>
                                     <td>{{$pedido->codigo}}</td>
                                     <td>{{$pedido->user_id}}</td>

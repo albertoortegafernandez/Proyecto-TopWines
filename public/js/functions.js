@@ -3,15 +3,15 @@ $(document).ready(function () {
 
     //Boton like
     function like() {
-        $('.btn-like').unbind('click').click(function () {
-            console.log('like');
-            $(this).removeClass('btn-like');
-            $(this).addClass('btn-dislike');
-            $(this).attr('src', web + '/img/like-blue.png');
-            $.ajax({
-                url: web + '/like/' + $(this).data('id'),
+        $('.btn-like').unbind('click').click(function () { //Al hacer click en el enlace
+            console.log('like'); //Muestra mensaje en consola
+            $(this).removeClass('btn-like'); //Eliminamos la clase like
+            $(this).addClass('btn-dislike'); //Añadimos la clase dislike
+            $(this).attr('src', web + '/img/like-blue.png'); //Cambia  la imagen
+            $.ajax({ //Petición Ajax para actualizar en bd
+                url: web + '/like/' + $(this).data('id'), //Añadimos en la url el numero del id del vino
                 type: 'GET',
-                success: function (response) {
+                success: function (response) { //enviamos la respuesta que será vista por consola del navegador
                     if (response.like) {
                         console.log("Has dado like a este vino");
                     } else {
@@ -20,7 +20,7 @@ $(document).ready(function () {
                 }
             });
             dislike();
-            reload();
+            reload();//Actualizamos la página
         });
     }
     like();

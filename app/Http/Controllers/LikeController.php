@@ -21,16 +21,17 @@ class LikeController extends Controller
 
         //Condicion para ver si ya existe el like de ese usuario para no duplicarlo
         $isset_like = Like::where('user_id', $user->id)->where('wine_id', $wine_id)->count();
+        //Si el like es igual a 0
         if ($isset_like == 0) {
-            $like = new Like();
-            $like->user_id = $user->id;
-            $like->wine_id = (int)$wine_id;
+            $like = new Like(); //Creamos un nuevo like
+            $like->user_id = $user->id; //Con el id del usuario
+            $like->wine_id = (int)$wine_id; //Y el id del vino correspondiente
             //Guardar Base Datos
             $like->save();
             return response()->json([
                 'like' => $like
             ]);
-        } else {
+        } else { //Si ya existe el like devolvemos
             return response()->json([
                 'message' => 'El like ya existe'
             ]);
@@ -50,7 +51,7 @@ class LikeController extends Controller
             $like->delete();
             return response()->json([
                 'like' => $like,
-                'message'=>'Has dado dislike correctamente'
+                'message' => 'Has dado dislike correctamente'
             ]);
         } else {
             return response()->json([

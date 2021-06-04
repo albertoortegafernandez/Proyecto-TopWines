@@ -10,7 +10,9 @@
             </div>
             @endif
             <div class="card">
-                <div  style="text-align:center;" class="card-header"><h4><i class="fas fa-user-edit"></i> Editar Perfil</h4></div>
+                <div style="text-align:center;" class="card-header">
+                    <h4><i class="fas fa-user-edit"></i> Editar Perfil</h4>
+                </div>
 
                 <div class="card-body">
                     <form method="POST" action="{{route('user.update')}}" enctype="multipart/form-data" aria-label="Configuración de la cuenta">
@@ -58,7 +60,7 @@
                             <label for="adress" class="col-md-4 col-form-label text-md-right">Direccion: </label>
 
                             <div class="col-md-6">
-                                <input id="adress" type="text" class="form-control @error('adress') is-invalid @enderror" name="adress" value="{{ $user->adress }}"  autocomplete="adress" autofocus>
+                                <input id="adress" type="text" class="form-control @error('adress') is-invalid @enderror" name="adress" value="{{ $user->adress }}" autocomplete="adress" autofocus>
 
                                 @error('adress')
                                 <span class="invalid-feedback" role="alert">
@@ -141,7 +143,7 @@
                                     Guardar Cambios
                                 </button>
                             </div>
-                        </div>       
+                        </div>
                     </form>
                 </div>
             </div>

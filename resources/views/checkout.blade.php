@@ -4,6 +4,7 @@
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 justify-content-center ">
             @if(count(Cart::getContent()))
+            <!--Si hay contenido en el carrito -->
             <div class="row">
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
                     <div class="card">
@@ -39,6 +40,7 @@
                         </thead>
                         <tbody>
                             @foreach (Cart::getcontent() as $wine)
+                            <!-- Recorremos los productos que hay en el carrito  -->
                             <tr>
                                 <td>{{$wine->name}}</td>
                                 <td>{{$wine->quantity}}</td>
@@ -57,6 +59,7 @@
                             <tr>
                                 <td colspan="4"></td>
                                 <td>{{number_format(Cart::getSubtotal(),2)}}€</td>
+                                <!--Obtenemos el resultado con 2 decimales -->
                                 <td>Total Compra</td>
                             </tr>
                             <tr>
@@ -88,6 +91,7 @@
                 </div>
             </div>
             @else
+            <!-- Si el carrito esta vacio -->
             <div class="jumbotron text-center col-12" style="background-color: #EACBC5;">
                 <h2>Su carrito está vacio</h2>
                 <br>

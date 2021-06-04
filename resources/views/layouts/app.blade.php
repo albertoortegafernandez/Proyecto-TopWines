@@ -67,6 +67,7 @@
                             <div>
                                 <img src="{{asset('img/cart.png')}}" class="carrito"></img>
                                 @if(count(Cart::getContent()))
+                                <!--Si hay productos en el carrito muestra un enlace con el numero de productos diferentes que tiene -->
                                 <p>&nbsp<a href="{{route('cart.checkout')}}"><span class="badge badge-danger">{{count(Cart::getContent())}}</span></a></p>
                                 @endif
                             </div>
@@ -139,9 +140,9 @@
                 <div class="row">
                     <div class="col-12 justify-content-center">
                         <div style="text-align:center;font-size:x-large;"><a href="{{ url('/') }}"><img style="width:120px;" src="{{asset('img/new_logo.png')}}"></a>Siguenos en nuestras Redes: </img>
-                            <img style="width:30px;margin-left:10px;" src="{{asset('img/twitter.png')}}"/>
-                            <img style="width:30px;margin-left:10px;" src="{{asset('img/facebook.png')}}"/>
-                            <img style="width:30px;margin-left:10px;" src="{{asset('img/instagram.png')}}"/>
+                            <img style="width:30px;margin-left:10px;" src="{{asset('img/twitter.png')}}" />
+                            <img style="width:30px;margin-left:10px;" src="{{asset('img/facebook.png')}}" />
+                            <img style="width:30px;margin-left:10px;" src="{{asset('img/instagram.png')}}" />
                         </div>
                     </div>
                 </div>
@@ -157,4 +158,5 @@
         </div>
     </div>
 </footer>
+
 </html>

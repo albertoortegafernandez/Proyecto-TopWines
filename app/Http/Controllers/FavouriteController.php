@@ -13,30 +13,32 @@ class FavouriteController extends Controller
 
     public function __construct()
     {
+        //Unico acceso sin estar logueado a favouritesSumiller
         $this->middleware('auth')->except('favouritesSumiller');
     }
 
-    public function showFavourites(){
-        $user=Auth::user();
-        $wines=Wine::all();
-        $favourites=Favourite::where('user_id',$user->id)->orderBy('id','desc')->get();/*ordenar por id mayor*/
-        return view ("favourite.favourites",['favourites'=>$favourites,'wines'=>$wines]);
+    public function showFavourites()
+    {
+        $user = Auth::user();
+        $wines = Wine::all();
+        $favourites = Favourite::where('user_id', $user->id)->orderBy('id', 'desc')->get();/*ordenar por id mayor*/
+        return view("favourite.favourites", ['favourites' => $favourites, 'wines' => $wines]);
     }
 
     public function favourite($wine_id)
     {
         //Recoger datos del usuario y el vino
         $user = Auth::user();
-       
+
         //Condicion para ver si ya existe el favorito de ese usuario para no duplicarlo
         $isset_favourite = Favourite::where('user_id', $user->id)->where('wine_id', $wine_id)->count();
 
-        if ($isset_favourite == 0) {//Si es igual a 0 añade el favorito
+        if ($isset_favourite == 0) { //Si es igual a 0 añade el favorito
 
             $favourite = new Favourite;
             $favourite->user_id = $user->id;
             $favourite->wine_id = (int)$wine_id;
-            //Guardar Base Datos
+            //Guardar en Base Datos
             $favourite->save();
 
             return response()->json([
@@ -72,12 +74,12 @@ class FavouriteController extends Controller
             ]);
         }
     }
-    public function favouritesSumiller(){
-        $id=2;//Id del sumiller
-        $user=User::find($id);//Obtengo todos los datos de sumiller
-        $favourites=Favourite::where('user_id',$user->id)->paginate(9);//Selecciono sus primeros 9 favoritos        
-        $wines=Wine::query()->get();//Obtengo los datos de los vinos 
-        return view ("favourite.topSumiller",['wines'=>$wines,'favourites'=>$favourites]);
+    public function favouritesSumiller()
+    {
+        $id = 2; //Id del sumiller
+        $user = User::find($id); //Obtengo todos los datos de sumiller
+        $favourites = Favourite::where('user_id', $user->id)->paginate(9); //Selecciono únicamente sus primeros 9 favoritos
+        $wines = Wine::query()->get(); //Obtengo los datos de los vinos
+        return view("favourite.topSumiller", ['wines' => $wines, 'favourites' => $favourites]);
     }
-
 }
